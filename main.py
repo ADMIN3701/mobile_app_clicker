@@ -9,6 +9,14 @@ text1 = f1.render(scet, True, (255, 255, 255))
 
 clock = pygame.time.Clock()
 
+background = pygame.image.load("images/background.png")
+
+menu = True
+Menu_image = pygame.image.load("images/menu.png")
+Menu_image.set_colorkey((255, 255, 255))
+menu_y = 150
+jumpcout = 10
+
 class Clicker():
     possition = [50, 100]
     image = pygame.image.load("images/cookie.png")
@@ -72,10 +80,12 @@ while done:
         if e.type == pygame.QUIT:
             done = False
         if e.type == pygame.MOUSEBUTTONDOWN:
-            crateballs(CST_group)
-            pygame.mixer.music.load("3309-hrusta-rtom-suhogo-pechenja.mp3")
-            pygame.mixer.music.play()
-            scet += "1"
+            menu = False
+            if not(menu):
+                crateballs(CST_group)
+                pygame.mixer.music.load("3309-hrusta-rtom-suhogo-pechenja.mp3")
+                pygame.mixer.music.play()
+                scet += "1"
             pygame.display.flip()
 
 
@@ -84,13 +94,19 @@ while done:
         done = False
 
     window.fill((0, 0, 0))
-    window.blit(pygame.transform.rotate(Clicker.image, Clicker.angle), Clicker.possition)
+    window.blit(pygame.transform.rotate(background, 90), (0, 0))
 
-    CST_group.draw(window)
+    if menu:
+        window.blit(Menu_image, (5, menu_y))
 
-    #window.blit(pygame.transform.scale(CST.image_chastiza, (40, 40)), CST.rect)
-    window.blit(text1, (200, 0))
-    CST_group.update(600)
+    if not(menu):
+        window.blit(pygame.transform.rotate(Clicker.image, Clicker.angle), Clicker.possition)
+
+        CST_group.draw(window)
+
+        #window.blit(pygame.transform.scale(CST.image_chastiza, (40, 40)), CST.rect)
+        window.blit(text1, (200, 0))
+        CST_group.update(600)
     pygame.display.update()
     clock.tick(60)
 
