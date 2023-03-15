@@ -3,10 +3,6 @@ import pygame
 pygame.init()
 pygame.font.init()
 
-scet = "aaa"
-f1 = pygame.font.Font(None, 36)
-text1 = f1.render(scet, True, (255, 255, 255))
-
 clock = pygame.time.Clock()
 
 background = pygame.image.load("images/background.png")
@@ -71,8 +67,18 @@ pygame.display.set_caption(("Mobile App"))
 
 #crateballs(CST_group)
 
+scet = 0
+
+pygame.mixer.music.load("music2.mp3")
+pygame.mixer.music.play(-1)
+hrust = pygame.mixer.Sound("3309-hrusta-rtom-suhogo-pechenja.mp3")
+
 done = True
 while done:
+
+    f1 = pygame.font.Font(None, 36)
+    schet_number = f1.render(str(scet), True, (255, 255, 255))
+    schet_text = f1.render("Счет: ", True, (255, 122, 87))
 
     Clicker.angle += 1.5
 
@@ -83,9 +89,8 @@ while done:
             menu = False
             if not(menu):
                 crateballs(CST_group)
-                pygame.mixer.music.load("3309-hrusta-rtom-suhogo-pechenja.mp3")
-                pygame.mixer.music.play()
-                scet += "1"
+                hrust.play()
+                scet += 1
             pygame.display.flip()
 
 
@@ -105,7 +110,9 @@ while done:
         CST_group.draw(window)
 
         #window.blit(pygame.transform.scale(CST.image_chastiza, (40, 40)), CST.rect)
-        window.blit(text1, (200, 0))
+        window.blit(schet_number, (100, 30))
+        window.blit(schet_text, (30, 30))
+
         CST_group.update(600)
     pygame.display.update()
     clock.tick(60)
