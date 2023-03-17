@@ -15,10 +15,16 @@ jumpcout = 10
 
 class Clicker():
     possition = [50, 100]
-    image = pygame.image.load("images/cookie.png")
-    image.set_colorkey((255, 255, 255))
+    image = [pygame.image.load("images/c2.png"),
+             pygame.image.load("images/c3.png"),
+             pygame.image.load("images/c4.png"),
+             pygame.image.load("images/c5.png"),
+             pygame.image.load("images/c6.png"),
+             pygame.image.load("images/c7.png"),
+             pygame.image.load("images/c8.png"),
+             pygame.image.load("images/c9.png")]
+    animcout = 0
     angle = 0
-    rect = pygame.Rect(possition[0], possition[1], image.get_height(), image.get_width())
 
 class Chastiza(pygame.sprite.Sprite):
     def __init__(self, x, speed, surf, group, Random, Random_way):
@@ -75,6 +81,8 @@ hrust = pygame.mixer.Sound("3309-hrusta-rtom-suhogo-pechenja.mp3")
 
 done = True
 while done:
+    if Clicker.animcout == 7:
+        Clicker.animcout = 0
 
     f1 = pygame.font.Font(None, 36)
     schet_number = f1.render(str(scet), True, (255, 255, 255))
@@ -91,6 +99,7 @@ while done:
                 crateballs(CST_group)
                 hrust.play()
                 scet += 1
+                Clicker.animcout += 1
             pygame.display.flip()
 
 
@@ -105,7 +114,8 @@ while done:
         window.blit(Menu_image, (5, menu_y))
 
     if not(menu):
-        window.blit(pygame.transform.rotate(Clicker.image, Clicker.angle), Clicker.possition)
+        Clicker.image[Clicker.animcout].set_colorkey((255, 255, 255))
+        window.blit(pygame.transform.rotate(Clicker.image[Clicker.animcout], Clicker.angle), Clicker.possition)
 
         CST_group.draw(window)
 
